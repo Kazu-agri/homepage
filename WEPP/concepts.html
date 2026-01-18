@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>0. はじめに（WEPPの概要）｜WEPPの使い方</title>
+  <title>はじめに（WEPPの概要）｜WEPPの使い方</title>
   <meta name="description" content="【研究室向け】WEPP（Water Erosion Prediction Project）の概要。何を計算するモデルか、入力4本柱、圃場（hillslope）から理解するための基本。" />
 
   <link rel="stylesheet" href="../css/style.css" />
@@ -20,8 +20,8 @@
   </nav>
 
   <header class="header">
-    <h1>0. はじめに（WEPPの概要）</h1>
-    <p>このチュートリアルは「圃場版WEPPを自力で動かす」ことから始めます。</p>
+    <h1>WEPPの使い方</h1>
+    <p>0. はじめに（WEPPの概要）</p>
   </header>
 
   <main class="container">
@@ -34,16 +34,15 @@
 
     <!-- 5 steps reminder -->
     <section class="card">
-      <h2 class="h2-tight">このページの位置づけ（5段階のステップ0）</h2>
+      <h2 class="h2-tight">このページの位置づけ</h2>
       <p class="sub">
-        WEPP使い方は以下の5段階で整理します。<br>
-        このページは <strong>0. はじめに（WEPPの概要）</strong>です。
+        WEPP使い方は以下の5段階で整理します。
       </p>
       <ul class="simple">
-        <li><strong>0.</strong> はじめに（WEPPの概要）</li>
-        <li>1. 圃場版WEPPの動かし方（まず動かす）</li>
+        <li><strong>0.はじめに（WEPPの概要）</strong> </li>
+        <li>1. WEPPのインストール</li>
         <li>2. 入力データ（Climate / Soil / Management / Topography）</li>
-        <li>3. 作業の流れ（研究室での標準手順）</li>
+        <li>3. 作業の流れ（Hillslope版）</li>
         <li>4. 出力の見方（最低限）</li>
       </ul>
     </section>
@@ -53,15 +52,15 @@
       <h2 class="h2-tight">WEPPとは何か（1分で）</h2>
       <p>
         <strong>WEPP（Water Erosion Prediction Project）</strong>は、
-        <strong>降雨</strong>と<strong>地形</strong>と<strong>土壌</strong>と<strong>土地管理</strong>の情報をもとに、
-        <strong>水による土壌侵食（erosion）と流出（runoff）</strong>を計算するモデルです。
+        <strong>降雨</strong>と<strong>地形</strong>と<strong>土壌</strong>と<strong>営農管理</strong>の情報をもとに、
+        <strong>水による土壌侵食（water erosion）と流出（runoff）</strong>を計算するモデルです。
       </p>
       <p>
-        特徴は、単なる経験式ではなく、
-        <strong>降雨 → 流出 → 侵食 → 輸送 → 堆積</strong>という過程を、条件に応じて追いかける点です。
+        特徴は、USLEのような各種係数のかけ合わせによる経験式ではなく、
+        <strong>降雨 → 流出 → 侵食 → 輸送 → 堆積</strong>といった一連の過程を、入力条件に応じてシミュレーションできる点です。
       </p>
       <p class="sub">
-        まずは<strong>圃場（hillslope）</strong>で理解し、そこから流域・広域へ拡張します。
+        まずは<strong>圃場（hillslope）スケール</strong>の操作を理解し、そこから流域スケールへ拡張します。
       </p>
     </section>
 
@@ -69,13 +68,13 @@
     <section class="card">
       <h2 class="h2-tight">なぜ「圃場版（hillslope）」から始めるのか</h2>
       <ul class="simple">
-        <li>入力が少なく、原因切り分けがしやすい（最短で動く）</li>
-        <li>結果を決める要因（気象・土壌・管理・地形）を理解しやすい</li>
-        <li>流域（GeoWEPP等）に進んでも「何が効いているか」を見失いにくい</li>
+        <li>入力が最もシンプルで、WEPPを使用する上で基礎的なパートであるため</li>
+        <li>結果を決める要因（気象・土壌・地形・営農管理）を理解できるようにするため</li>
+        <li>流域スケール（内部の水路モデルやGeoWEPP等）に進んでも「何が効いているか」を見失いにくくするため</li>
       </ul>
       <p class="sub">
-        逆に、いきなり流域解析へ行くと、地形処理・パラメータ・出力の情報量が増え、
-        「どこで結果が決まったのか」が分からなくなりがちです。
+        個人的な所感としては、いきなり流域解析へ行くと、地形処理・パラメータ・出力の情報量が増え、
+        「どこで結果が決まったのか」が分からなくなりがちだと思います。
       </p>
     </section>
 
@@ -83,45 +82,41 @@
     <section class="card">
       <h2 class="h2-tight">WEPPの入力（4本柱）</h2>
       <p class="sub">
-        WEPPの挙動は、ほぼ次の4つで決まります。ここがWEPP解析の核心です。
+        WEPPの挙動は、ほぼ次の4つで決まります。ここが解析の核心です。
       </p>
 
       <h3>Climate（気象）</h3>
       <ul class="simple">
-        <li>いつ・どれだけ降るか（強さ、継続時間、頻度）</li>
-        <li>イベント解析と長期解析で“適切な入力”が変わる</li>
+        <li>雨がいつ・どれだけ降るかを決める（降雨強度、降雨継続時間、頻度など）</li>
+        <li>例えば実際の侵食イベントを再現するときには、観測した降雨のデータを使用できる</li>
       </ul>
 
       <h3>Soil（土壌）</h3>
       <ul class="simple">
-        <li>削れやすさ・浸透しやすさ・構造など（土壌物性）</li>
-        <li>土壌の仮定が結果に強く出る（推定根拠を残すのが重要）</li>
-      </ul>
-
-      <h3>Management（管理）</h3>
-      <ul class="simple">
-        <li>作物、耕うん、被覆、残渣（人間が変える要因）</li>
-        <li>「いつ何をしたか」で侵食量が大きく変わる</li>
+        <li>土壌の物性について決める（削れやすさ・浸透しやすさ・構造など）</li>
+        <li>土による違いを調べたり、侵食対策を削れやすさのパラメータで表現したり、様々な用途がある</li>
       </ul>
 
       <h3>Topography（地形）</h3>
       <ul class="simple">
-        <li>斜面長・勾配・区間分割（流れ方の骨格）</li>
-        <li>地形の粗さは、過大評価/過小評価の原因になり得る</li>
+        <li>圃場内での水の流れ方などが決まる（斜面長・勾配・区間分割など）</li>
+        <li>勾配修正工の効果などのシミュレーションができる</li>
+      </ul>
+      
+      <h3>Management（管理）</h3>
+      <ul class="simple">
+        <li>人間による要因（作物、耕うん、被覆、残渣の有無など）</li>
+        <li>主に営農的対策効果のシミュレーションで用いる</li>
       </ul>
 
-      <p class="sub">
-        次のステップ（1・2）では、この4本柱を「最小構成で揃える→必要に応じて精密化する」
-        という考え方で進めます。
-      </p>
     </section>
 
     <!-- Processes -->
     <section class="card">
       <h2 class="h2-tight">WEPPが見ている侵食過程（ざっくり）</h2>
       <ul class="simple">
-        <li><strong>Interrill（インターリル）：</strong>面状流（シートフロー）による剥離・輸送</li>
-        <li><strong>Rill（リル）：</strong>集中流による溝（リル）侵食</li>
+        <li><strong>Interrill（インターリル）侵食：</strong>雨滴による、斜面での面状の剥離・輸送（畝などの斜面）</li>
+        <li><strong>Rill（リル）侵食：</strong>水の流れによる溝（リル）での線状の剥離・輸送（畝間を流れる水）</li>
         <li><strong>Deposition（堆積）：</strong>輸送能力が落ちた場所で堆積</li>
       </ul>
       <p class="sub">
@@ -134,19 +129,19 @@
     <section class="card">
       <h2 class="h2-tight">WEPPの出力（何が分かるか）</h2>
       <ul class="simple">
-        <li><strong>流出量（runoff）</strong></li>
-        <li><strong>侵食量（erosion）</strong>：インターリル／リル／合計 など</li>
+        <li><strong>水の流出量（runoff）</strong></li>
+        <li><strong>土の侵食量（soil loss/sediment yield）</strong>：インターリル／リル／合計 など</li>
         <li>斜面内の侵食・堆積の分布（設定に依存）</li>
         <li>期間合計・イベントごとの集計</li>
       </ul>
       <p class="sub">
-        まずは「値が出る」よりも「挙動の方向が妥当か（被覆で減る、勾配で増える等）」を確認するのが安全です。
+        まずは「値が出る」よりも「挙動の方向が妥当か（被覆で減る、勾配で増える等）」を確認してみましょう。
       </p>
     </section>
 
     <!-- Common misunderstandings -->
     <section class="card">
-      <h2 class="h2-tight">よくある誤解（先に防ぐ）</h2>
+      <h2 class="h2-tight">ありがちな誤解</h2>
       <ul class="simple">
         <li>WEPPの出力は“正解”ではなく、<strong>仮定に基づく予測</strong></li>
         <li>入力の不確実性（特に土壌・管理）が結果に大きく乗る</li>
@@ -158,10 +153,10 @@
     <section class="card">
       <h2 class="h2-tight">次に読む</h2>
       <ul class="simple">
-        <li><a href="getting_started.html">1. 圃場版WEPPの動かし方（まず動かす）</a></li>
-        <li><a href="inputs.html">2. 入力データ（4本柱）</a></li>
+        <li><a href="getting_started.html">1. WEPPのインストール</a></li>
+        <li><a href="inputs.html">2. 入力データ</a></li>
       </ul>
-      <p class="sub"><a href="./index.html">← WEPP使い方トップへ戻る</a></p>
+      <p class="sub"><a href="./index.html">← WEPPの使い方トップへ戻る</a></p>
     </section>
   </main>
 
