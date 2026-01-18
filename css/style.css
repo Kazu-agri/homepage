@@ -255,6 +255,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html {
+  scroll-padding-top: 72px;
+}
+
+
 /* =========================
    Responsive (mobile)
 ========================= */
