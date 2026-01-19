@@ -1,1 +1,56 @@
-準備中
+---
+layout: default
+title: "4. 出力の見方（最低限）｜WEPPの使い方"
+description: "まず見るべき出力と、初心者がハマりやすいチェックポイント。"
+header_lead: "4. 出力の見方（最低限）"
+wepp_prev_url: /WEPP/inputs.html
+wepp_prev_title: "3. 入力データ"
+wepp_next_url:
+wepp_next_title:
+---
+
+<p class="sub breadcrumb">
+  <a href="{{ '/' | relative_url }}">Home</a> /
+  <a href="{{ '/other.html' | relative_url }}">その他</a> /
+  <a href="{{ '/WEPP/' | relative_url }}">WEPPの使い方</a> /
+  4. 出力の見方
+</p>
+
+<section class="card">
+  <h2 class="h2-tight">このページのゴール</h2>
+  <ul class="simple">
+    <li>「まず見るべき出力」を固定化する</li>
+    <li>侵食量だけで判断しない（流出・水収支を見る）</li>
+    <li>入力変更が妥当に反映されているか確認できるようにする</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2 class="h2-tight">最初に見る3つ</h2>
+  <ul class="simple">
+    <li><strong>降水量</strong>（期間合計 / イベント）</li>
+    <li><strong>流出量</strong>（runoff）</li>
+    <li><strong>土砂</strong>（interrill / rill / total）</li>
+  </ul>
+  <p class="sub">ここに書く内容：どこに表示されるか、単位の注意。</p>
+</section>
+
+<section class="card">
+  <h2 class="h2-tight">“怪しい結果”の見抜き方</h2>
+  <ul class="simple">
+    <li>（TODO）流出ゼロ／流出過大などの典型例</li>
+    <li>（TODO）侵食が不自然に大きい／小さい</li>
+    <li>（TODO）単位・期間設定・出力設定の見落とし</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2 class="h2-tight">次に進む（中級編への入口）</h2>
+  <ul class="simple">
+    <li><a href="{{ '/WEPP/cligen.html' | relative_url }}">Climateファイル（CLIGEN）</a></li>
+    <li><a href="{{ '/WEPP/bpcdg.html' | relative_url }}">Climateファイル（BPCDG）</a></li>
+  </ul>
+  <p class="sub">※中級編は準備できたらリンク先を作る。</p>
+</section>
+
+{% include wepp_nav.html %}
