@@ -11,14 +11,14 @@
     "title": "WEPPの解説記事",
     "url": "notes/20260118.html",
     "excerpt": "WEPPの使い方解説を作っていきます",
-    "tags": ["log", "wepp"]
+    "tags": ["log", "WEPP"]
   },
   {
     "date": "2026-01-22",
     "title": "d4PDFをWEPPで…",
     "url": "notes/20260122.html",
     "excerpt": "WEPPにd4PDFのデータを突っ込む方法を模索中",
-    "tags": ["log", "wepp", "d4PDF"]
+    "tags": ["log", "WEPP", "d4PDF"]
   },
    {
     "date": "2026-01-26",
